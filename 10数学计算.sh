@@ -22,7 +22,7 @@
 # let	        用于整数运算，和 (()) 类似。
 # $[]	        用于整数运算，不如 (()) 灵活。
 # expr	      可用于整数运算，也可以处理字符串。比较麻烦，需要注意各种细节，不推荐使用。
-# bc	        Linux下的一个计算器程序，可以处理整数和小数。 Shell 本身只支持整数运算，想计算小数就得使用 bc 这个外部的计算器。
+# bc	        Linux下的一个计算器程序，可以处理整数和小数。【 Shell 本身只支持整数运算，想计算小数就得使用 bc 这个外部的计算器】
 # declare -i	将变量定义为整数，然后再进行数学运算时就不会被当做字符串了。功能有限，仅支持最基本的数学运算（加减乘除和取余），不支持逻辑运算、自增自减等，所以在实际开发中很少使用。
 
 # 演示 Shell 加号做拼接使用
@@ -35,6 +35,8 @@ c=$a+$b
 echo $c  # 输出：“23+90”
 
 # 演示数学计算
+# 注意：在 git bash 中好像不支持 bc运算会报“bc: command not found”错误。
+# *很多东西都应该在 linux 上面做演示
 numberOne=3
 numberTwo=7
 floatOne=3.1415927
@@ -43,13 +45,11 @@ stringNumberOne="3"
 stringNumberTwo="7"
 stringFloatOne="3.1415927"
 stringFloatTwo="7.0000009"
-resultOne=$(($numberOne+numberTwo))       # 变量名前可以加 $ ，也可以不加【变量可以直接是数值】
-let resultTwo=numberOne+numberTwo         # 使用 let 执行运算时，变量名之前不需要添加 $
-resultThree=$[numberOne+numberTwo]        #  变量名前可以加 $ ，也可以不加【变量可以直接是数值】
-resultFour=$(expe stringFloatOne + numberTwo)        #  变量名前可以加 $ ，也可以不加【变量可以直接是数值】
-echo "数学计算方法$(())结果是：$resultOne"
-echo "数学计算方法 let 结果是：$resultTwo"
-echo "数学计算方法 $[] 结果是：$resultThree"
-
-
-61 139 2 69
+resultOne=$(($numberOne+numberTwo))           # 变量名前可以加 $ ，也可以不加【变量可以直接是数值】
+let resultTwo=numberOne+numberTwo             # 使用 let 执行运算时，变量名之前不需要添加 $
+resultThree=$[numberOne+numberTwo]            #  变量名前可以加 $ ，也可以不加【变量可以直接是数值】
+resultFour=$(expr $stringNumberOne + $stringNumberTwo) #  变量名前可以加 $ ，也可以不加【变量可以直接是数值】
+echo "数学计算方法 $(()) 结果是：$resultOne"
+echo "数学计算方法 let   结果是：$resultTwo"
+echo "数学计算方法 $[]   结果是：$resultThree"
+echo "数学计算方法 expr  结果是：$resultFour"
