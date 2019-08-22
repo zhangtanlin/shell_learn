@@ -13,3 +13,11 @@
 a=10 b=20
 echo $((a+b)) # 能够输出 a 和 b 的结果
 echo let a+b  # 使用 let 则错误， echo 会把 let a+b 作为一个字符串输出。
+c=2
+let c+=8      # let c+=8 等同于 ((c+=8)) 并且后者效率更高 
+echo $c
+
+# let 后面跟多个表达式
+d=10 e=35      # 一行可以定义多个变量
+let d+=6 f=d+e # 多个表达式以空格分隔
+echo $d $f
